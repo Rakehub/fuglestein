@@ -1,0 +1,71 @@
+---
+const services = [
+  {
+    name: 'Fjord Norway',
+    description: 'Gardsbutikken vår er vakkert plassert ved fjorden i Suldal. På den offisielle reiselivsportalen for Vestlandet blir me trekk fram som eit flott stoppested for å smaka og kjøpa lokal eplemost og sider..',
+    image: '/assets/fjord.webp',
+    link: 'https://www.fjordnorway.com/en/see-and-do/farm-shop-at-fuglestein-fruktgard-in-suldal',
+    alt: 'Fuglestein Fruktgard presentert på den offisielle reiselivssida Fjord Norway'
+  },
+  {
+    name: 'Visit Norway',
+    description: 'Fruktdyrkinga på Fuglestein strekkjer seg heilt tilbake til 1838 i eit historisk område i Jelsa. Med 17 000 nye frukttre produserer me sider, eplemost og eplegele, som blir trekt fram på den offisielle reiselivsportalen.',
+    image: '/assets/press.webp',
+    link: 'https://www.visitnorway.com/listings/farm-shop-at-fuglestein-fruktgard-in-suldal/243969/',
+    alt: 'Gardsbutikken til Fuglestein Fruktgard omtalt på Visit Norway'
+  },
+  {
+    name: 'Visit Suldal',
+    description: 'Som ein del av "Matskattar frå Suldal" ligg garden vår idyllisk til ved Økstrafjorden. På den lokale turistguiden blir me trekt fram for gardsbesøk, omvising i eplehagen og smaksprøvar av lokalproduserte varer.',
+    image: '/assets/suldal.webp',
+    link: 'https://www.visitsuldal.com/eat-and-stay/fuglestein-fruktgard-fuglestein',
+    alt: 'Fuglestein Fruktgard som ein del av Matskattar frå Suldal hos Visit Suldal'
+  },
+];
+---
+
+<section class="py-16 sm:py-20">
+  <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+    <div class="flex flex-col gap-12 sm:gap-16">
+      <h2 class="text-3xl font-medium tracking-tight sm:text-4xl">Ein del av den lokale reisa</h2>
+      
+      <div class="grid gap-8 lg:grid-cols-3">
+        {
+          services.map((service) => (
+            <a 
+              href={service.link}
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="group block overflow-hidden rounded-3xl bg-primary-500/5 dark:bg-primary-400/5 border border-primary-500/10 dark:border-primary-400/10 transition-all duration-300 hover:-translate-y-1 hover:bg-primary-500/10 dark:hover:bg-primary-400/10 shadow-md hover:shadow-xl"
+            >
+              
+              <div class="relative w-full aspect-[16/10] overflow-hidden bg-neutral-950">
+                <img 
+                  src={service.image} 
+                  alt={service.alt} 
+                  class="h-full w-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-105 group-hover:opacity-100"
+                  loading="lazy"
+                />
+                
+              </div>
+
+              
+              <div class="flex flex-col gap-4 p-6">
+                <h3 class="text-xl font-medium text-primary-950 dark:text-primary-50 transition-colors duration-300 group-hover:text-amber-500">
+                  {service.name}
+                </h3>
+                <p class="text-primary-950/70 dark:text-primary-200/70 text-base line-clamp-5 leading-relaxed">
+                  {service.description}
+                </p>
+                
+                <div class="pt-2 flex items-center text-xs font-semibold text-amber-500 tracking-wider uppercase group-hover:underline">
+                  Les meir →
+                </div>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

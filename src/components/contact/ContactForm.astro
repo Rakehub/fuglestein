@@ -1,0 +1,234 @@
+<section class="bg-primary-50 text-primary-900 dark:bg-primary-950 dark:text-primary-100 transition-colors duration-300 py-16">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+
+    <div class="flex flex-col items-center gap-4 mb-12">
+      <h2 class="text-3xl font-light tracking-tight text-primary-900 dark:text-primary-100">Glimt frå garden</h2>
+      <div class="h-px w-16 bg-primary-300 dark:bg-primary-700"></div>
+    </div>
+
+    <div
+      x-data="{
+        activeSlide: 0,
+        perPage: 3,
+        autoplayInterval: null,
+        lightbox: null,
+        images: [
+          '/assets/carusell/img1.jpg',
+          '/assets/carusell/img2.jpg',
+          '/assets/carusell/img3.jpg',
+          '/assets/carusell/img4.jpg',
+          '/assets/carusell/img5.jpg',
+          '/assets/carusell/img6.jpg',
+          '/assets/carusell/img7.jpg',
+          '/assets/carusell/img8.jpg',
+          '/assets/carusell/img9.jpg',
+          '/assets/carusell/img10.jpg',
+          '/assets/carusell/img11.jpg',
+          '/assets/carusell/img12.jpg',
+          '/assets/carusell/img13.jpg',
+          '/assets/carusell/img14.jpg',
+          '/assets/carusell/img15.jpg',
+          '/assets/carusell/img16.jpg'
+        ],
+        get maxSlide() {
+          return this.images.length - 1;
+        },
+        get offset() {
+          return (this.activeSlide * 100) / this.perPage;
+        },
+        next() {
+          this.activeSlide = this.activeSlide >= this.maxSlide ? 0 : this.activeSlide + 1;
+        },
+        prev() {
+          this.activeSlide = this.activeSlide <= 0 ? this.maxSlide : this.activeSlide - 1;
+        },
+        lightboxNext() {
+          this.lightbox = (this.lightbox + 1) % this.images.length;
+        },
+        lightboxPrev() {
+          this.lightbox = (this.lightbox - 1 + this.images.length) % this.images.length;
+        },
+        openLightbox(index) {
+          this.lightbox = index;
+          this.stopAutoplay();
+          document.body.style.overflow = 'hidden';
+        },
+        closeLightbox() {
+          this.lightbox = null;
+          this.startAutoplay();
+          document.body.style.overflow = '';
+        },
+        startAutoplay() {
+          this.autoplayInterval = setInterval(() => this.next(), 6000);
+        },
+        stopAutoplay() {
+          clearInterval(this.autoplayInterval);
+        },
+        updatePerPage() {
+          this.perPage = window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+          this.activeSlide = Math.min(this.activeSlide, this.maxSlide);
+        }
+      }"
+      x-init="
+        updatePerPage();
+        startAutoplay();
+        window.addEventListener('resize', () => updatePerPage());
+        window.addEventListener('keydown', (e) => {
+          if (lightbox === null) return;
+          if (e.key === 'Escape') closeLightbox();
+          if (e.key === 'ArrowRight') lightboxNext();
+          if (e.key === 'ArrowLeft') lightboxPrev();
+        });
+      "
+      @mouseenter="stopAutoplay()"
+      @mouseleave="if (lightbox === null) startAutoplay()"
+      class="relative w-full"
+    >
+
+      <!-- Carrusel -->
+      <div class="overflow-hidden">
+        <div
+          class="flex transition-transform duration-1000 ease-in-out"
+          :style="`transform: translateX(-${offset}%)`"
+        >
+          <template x-for="(img, i) in images" :key="i">
+            <div
+              class="flex-shrink-0 px-2"
+              :style="`width: ${100 / perPage}%`"
+            >
+              <button
+                @click="openLightbox(i)"
+                class="group relative w-full block overflow-hidden focus:outline-none"
+              >
+                <img
+                  :src="img"
+                  alt="Fuglestein Fruktgard"
+                  class="h-80 w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div class="absolute inset-0 bg-primary-950/0 group-hover:bg-primary-950/20 transition-colors duration-300 flex items-center justify-center">
+                  <svg
+                    class="h-8 w-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                  </svg>
+                </div>
+              </button>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <!-- Botón anterior -->
+      <button
+        @click="prev()"
+        class="absolute left-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 flex items-center justify-center bg-primary-50 dark:bg-primary-950 border border-primary-200 dark:border-primary-800 text-primary-600 dark:text-primary-400 hover:bg-primary-100 dark:hover:bg-primary-900 transition-colors duration-200"
+        aria-label="Førre bilete"
+      >
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+        </svg>
+      </button>
+
+      <!-- Botón siguiente -->
+      <button
+        @click="next()"
+        class="absolute right-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 flex items-center justify-center bg-primary-50 dark:bg-primary-950 border border-primary-200 dark:border-primary-800 text-primary-600 dark:text-primary-400 hover:bg-primary-100 dark:hover:bg-primary-900 transition-colors duration-200"
+        aria-label="Neste bilete"
+      >
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+        </svg>
+      </button>
+
+      <!-- Contador -->
+      <div class="flex items-center justify-center gap-3 mt-8">
+        <span class="text-xs tracking-widest text-primary-400 dark:text-primary-600 tabular-nums">
+          <span x-text="String(activeSlide + 1).padStart(2, '0')"></span>
+          <span class="mx-2 text-primary-300 dark:text-primary-700">/</span>
+          <span x-text="String(images.length).padStart(2, '0')"></span>
+        </span>
+      </div>
+
+      <!-- Lightbox -->
+      <div
+        x-show="lightbox !== null"
+        x-transition:enter="transition duration-200 ease-out"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition duration-150 ease-in"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        @click.self="closeLightbox()"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+        style="display: none;"
+      >
+
+        <div
+          x-show="lightbox !== null"
+          x-transition:enter="transition duration-200 ease-out"
+          x-transition:enter-start="opacity-0 scale-95"
+          x-transition:enter-end="opacity-100 scale-100"
+          class="relative max-w-5xl w-full"
+        >
+          <img
+            :src="lightbox !== null ? images[lightbox] : ''"
+            alt="Fuglestein Fruktgard"
+            class="w-full max-h-[85vh] object-contain"
+          />
+
+          <div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-8 text-xs tracking-widest text-white/40 tabular-nums">
+            <span x-text="String((lightbox ?? 0) + 1).padStart(2, '0')"></span>
+            <span class="mx-2 text-white/20">/</span>
+            <span x-text="String(images.length).padStart(2, '0')"></span>
+          </div>
+        </div>
+
+        <!-- Cerrar -->
+        <button
+          @click="closeLightbox()"
+          class="absolute top-4 right-4 h-10 w-10 flex items-center justify-center text-white/60 hover:text-white transition-colors duration-200"
+          aria-label="Lukk"
+        >
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <!-- Anterior lightbox -->
+        <button
+          @click="lightboxPrev()"
+          class="absolute left-4 top-1/2 -translate-y-1/2 h-10 w-10 flex items-center justify-center text-white/60 hover:text-white border border-white/20 hover:border-white/40 transition-colors duration-200"
+          aria-label="Førre bilete"
+        >
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+          </svg>
+        </button>
+
+        <!-- Siguiente lightbox -->
+        <button
+          @click="lightboxNext()"
+          class="absolute right-4 top-1/2 -translate-y-1/2 h-10 w-10 flex items-center justify-center text-white/60 hover:text-white border border-white/20 hover:border-white/40 transition-colors duration-200"
+          aria-label="Neste bilete"
+        >
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="w-full h-[350px] sm:h-[450px] relative overflow-hidden">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2035.4441415308465!2d6.110757477514185!3d59.32553841132386!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x463bdd37ac0087a1%3A0x3464aa7d4ecfd250!2sFuglestein%20Fruktgard!5e0!3m2!1sno!2sno!4v1781467686651!5m2!1sno!2sno"
+    class="w-full h-full border-0 opacity-80 grayscale"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+  ></iframe>
+</div>
