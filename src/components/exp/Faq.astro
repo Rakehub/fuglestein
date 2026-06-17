@@ -34,7 +34,7 @@ const experiencesJson = JSON.stringify(experiences);
         class="text-3xl sm:text-4xl font-light italic text-primary-900 dark:text-primary-100"
         style="font-family: 'Cormorant Garamond', Georgia, serif;"
       >
-        Planlegg ditt besøk
+        Planlegg besøket ditt
       </h2>
       <p class="text-base text-primary-500 dark:text-primary-400 max-w-md leading-relaxed">
         Vel di oppleving, og send oss ein forespurnad — me svarar deg så raskt me kan.
@@ -114,6 +114,7 @@ const experiencesJson = JSON.stringify(experiences);
 </section>
 
 <script>
+  // @ts-nocheck
   document.addEventListener('alpine:init', () => {
     Alpine.data('experienceBuilder', () => ({
       experiences: [],
@@ -122,21 +123,28 @@ const experiencesJson = JSON.stringify(experiences);
       date: '',
       init(data) {
         this.experiences = data;
-        this.selected = data[0].id;
+        this.selected = data.length ? data[0].id : '';
       },
       get current() {
-        return this.experiences.find(e => e.id === this.selected);
+        if (!this.experiences.length) return null;
+        return this.experiences.find(e => e.id === this.selected) || null;
       },
       get summary() {
+        const current = this.current;
+        if (!current) return 'Vel ei oppleving...';
+
         const unit = this.people == 1 ? 'person' : 'personar';
-        return this.current.name + ' for ' + this.people + ' ' + unit;
+        return current.name + ' for ' + this.people + ' ' + unit;
       },
       sendRequest() {
-        const subject = encodeURIComponent('Forespurnad om besøk: ' + this.current.name);
+        const current = this.current;
+        if (!current) return;
+
+        const subject = encodeURIComponent('Forespurnad om besøk: ' + current.name);
         const dateText = this.date || 'ikkje spesifisert';
         const body = encodeURIComponent(
-          'Hei!\n\nJeg ønsker å booke følgande:\n\nOppleving: ' + this.current.name +
-          '\nVarigheit: ' + this.current.duration +
+          'Hei!\n\nJeg ønsker å booke følgande:\n\nOppleving: ' + current.name +
+          '\nVarigheit: ' + current.duration +
           '\nAntal personar: ' + this.people +
           '\nØnska dato: ' + dateText +
           '\n\nVennleg helsing,'

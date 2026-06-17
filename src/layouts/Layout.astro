@@ -28,10 +28,10 @@ const { description, title } = Astro.props;
     <ViewTransitions />
   </head>
   <body
-    class="bg-primary-50 text-primary-950 dark:bg-primary-950 dark:text-primary-200 antialiased transition"
+    class="bg-primary-50 text-primary-950 dark:bg-primary-950 dark:text-primary-200 antialiased transition flex flex-col min-h-screen"
   >
     <Header />
-    <main>
+    <main class="flex-grow">
       <slot />
     </main>
     <Footer />

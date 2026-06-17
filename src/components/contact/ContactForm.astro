@@ -2,25 +2,25 @@
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
 
     <div class="flex flex-col items-center gap-6 mb-16">
-  <!-- El título con más escala y el estilo de la fuente que definimos -->
-  <h2 class="text-4xl sm:text-5xl font-light tracking-tight text-primary-950 dark:text-white" style="font-family: 'Cormorant Garamond', Georgia, serif;">
-    Glimt frå garden
-  </h2>
-  
-  <!-- La línea ahora actúa como un separador elegante y con más presencia -->
-  <div class="flex items-center gap-3">
-    <div class="h-px w-12 bg-primary-300 dark:bg-primary-700"></div>
-    <div class="w-2 h-2 rounded-full bg-primary-300 dark:bg-primary-700"></div>
-    <div class="h-px w-12 bg-primary-300 dark:bg-primary-700"></div>
-  </div>
-</div>
+      <h2 class="text-4xl sm:text-5xl font-light tracking-tight text-primary-950 dark:text-white" style="font-family: 'Cormorant Garamond', Georgia, serif;">
+        Glimt frå garden
+      </h2>
+
+      <div class="flex items-center gap-3">
+        <div class="h-px w-12 bg-primary-300 dark:bg-primary-700"></div>
+        <div class="w-2 h-2 rounded-full bg-primary-300 dark:bg-primary-700"></div>
+        <div class="h-px w-12 bg-primary-300 dark:bg-primary-700"></div>
+      </div>
+    </div>
 
     <div
       x-data="{
-        activeSlide: 0,
+        activeSlide: 1,
         perPage: 3,
         autoplayInterval: null,
         lightbox: null,
+        touchStartX: 0,
+        touchEndX: 0,
         images: [
           '/assets/carusell/img1.jpg',
           '/assets/carusell/img2.jpg',
@@ -76,6 +76,20 @@
         updatePerPage() {
           this.perPage = window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3;
           this.activeSlide = Math.min(this.activeSlide, this.maxSlide);
+        },
+        handleTouchStart(e) {
+          this.touchStartX = e.changedTouches[0].screenX;
+        },
+        handleTouchEnd(e, isLightbox) {
+          this.touchEndX = e.changedTouches[0].screenX;
+          const diff = this.touchStartX - this.touchEndX;
+          const threshold = 50;
+          if (Math.abs(diff) < threshold) return;
+          if (isLightbox) {
+            diff > 0 ? this.lightboxNext() : this.lightboxPrev();
+          } else {
+            diff > 0 ? this.next() : this.prev();
+          }
         }
       }"
       x-init="
@@ -95,7 +109,11 @@
     >
 
       <!-- Carrusel -->
-      <div class="overflow-hidden">
+      <div
+        class="overflow-hidden"
+        @touchstart="handleTouchStart($event)"
+        @touchend="handleTouchEnd($event, false)"
+      >
         <div
           class="flex transition-transform duration-1000 ease-in-out"
           :style="`transform: translateX(-${offset}%)`"
@@ -128,10 +146,9 @@
         </div>
       </div>
 
-      <!-- Botón anterior -->
       <button
         @click="prev()"
-        class="absolute left-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 flex items-center justify-center bg-primary-50 dark:bg-primary-950 border border-primary-200 dark:border-primary-800 text-primary-600 dark:text-primary-400 hover:bg-primary-100 dark:hover:bg-primary-900 transition-colors duration-200"
+        class="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 items-center justify-center bg-primary-50 dark:bg-primary-950 border border-primary-200 dark:border-primary-800 text-primary-600 dark:text-primary-400 hover:bg-primary-100 dark:hover:bg-primary-900 transition-colors duration-200"
         aria-label="Førre bilete"
       >
         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -139,10 +156,9 @@
         </svg>
       </button>
 
-      <!-- Botón siguiente -->
       <button
         @click="next()"
-        class="absolute right-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 flex items-center justify-center bg-primary-50 dark:bg-primary-950 border border-primary-200 dark:border-primary-800 text-primary-600 dark:text-primary-400 hover:bg-primary-100 dark:hover:bg-primary-900 transition-colors duration-200"
+        class="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 items-center justify-center bg-primary-50 dark:bg-primary-950 border border-primary-200 dark:border-primary-800 text-primary-600 dark:text-primary-400 hover:bg-primary-100 dark:hover:bg-primary-900 transition-colors duration-200"
         aria-label="Neste bilete"
       >
         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -150,7 +166,6 @@
         </svg>
       </button>
 
-      <!-- Contador -->
       <div class="flex items-center justify-center gap-3 mt-8">
         <span class="text-xs tracking-widest text-primary-400 dark:text-primary-600 tabular-nums">
           <span x-text="String(activeSlide + 1).padStart(2, '0')"></span>
@@ -159,7 +174,6 @@
         </span>
       </div>
 
-      <!-- Lightbox -->
       <div
         x-show="lightbox !== null"
         x-transition:enter="transition duration-200 ease-out"
@@ -169,6 +183,8 @@
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0"
         @click.self="closeLightbox()"
+        @touchstart="handleTouchStart($event)"
+        @touchend="handleTouchEnd($event, true)"
         class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
         style="display: none;"
       >
@@ -183,7 +199,7 @@
           <img
             :src="lightbox !== null ? images[lightbox] : ''"
             alt="Fuglestein Fruktgard"
-            class="w-full max-h-[85vh] object-contain"
+            class="w-full max-h-[85vh] object-contain pointer-events-none"
           />
 
           <div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-8 text-xs tracking-widest text-white/40 tabular-nums">
@@ -193,7 +209,6 @@
           </div>
         </div>
 
-        <!-- Cerrar -->
         <button
           @click="closeLightbox()"
           class="absolute top-4 right-4 h-10 w-10 flex items-center justify-center text-white/60 hover:text-white transition-colors duration-200"
@@ -204,10 +219,9 @@
           </svg>
         </button>
 
-        <!-- Anterior lightbox -->
         <button
           @click="lightboxPrev()"
-          class="absolute left-4 top-1/2 -translate-y-1/2 h-10 w-10 flex items-center justify-center text-white/60 hover:text-white border border-white/20 hover:border-white/40 transition-colors duration-200"
+          class="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 h-10 w-10 items-center justify-center text-white/60 hover:text-white border border-white/20 hover:border-white/40 transition-colors duration-200"
           aria-label="Førre bilete"
         >
           <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -215,10 +229,9 @@
           </svg>
         </button>
 
-        <!-- Siguiente lightbox -->
         <button
           @click="lightboxNext()"
-          class="absolute right-4 top-1/2 -translate-y-1/2 h-10 w-10 flex items-center justify-center text-white/60 hover:text-white border border-white/20 hover:border-white/40 transition-colors duration-200"
+          class="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 h-10 w-10 items-center justify-center text-white/60 hover:text-white border border-white/20 hover:border-white/40 transition-colors duration-200"
           aria-label="Neste bilete"
         >
           <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">

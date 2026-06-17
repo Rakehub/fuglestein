@@ -1,10 +1,6 @@
 <section class="relative w-full overflow-hidden">
   
-  <!-- Contenedor Responsive: 
-       - Móvil: Altura completa, sin bordes.
-       - Desktop: Altura controlada, esquinas redondeadas, margen exterior. 
-  -->
-  <div class="relative w-full h-screen lg:h-[750px] lg:max-w-7xl lg:mx-auto lg:my-10 lg:rounded-3xl lg:shadow-2xl overflow-hidden">
+ <div class="relative w-full h-[60vh] sm:h-screen lg:h-[750px] lg:max-w-7xl lg:mx-auto lg:my-10 lg:rounded-3xl lg:shadow-2xl overflow-hidden">
     
     <video 
       autoplay 
@@ -12,19 +8,18 @@
       loop 
       playsinline 
       poster="/images/hero-fallback.jpg"
-      class="absolute inset-0 w-full h-full object-cover"
+      class="absolute inset-0 w-full h-full object-cover object-center" 
     >
       <source src="/assets/interesante.mp4" type="video/mp4" />
     </video>
+    </div>
 
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
 
 <div class="absolute bottom-0 left-0 w-full p-8 lg:p-16 flex flex-col items-start gap-5">
-      <!-- Aquí irían otros elementos si los tienes -->
     </div>
   </div>
 
-  <!-- Párrafo de cierre con estilo editorial -->
   <p class="text-center text-primary-900/60 dark:text-primary-200/60 font-light tracking-wide text-xl sm:text-2xl mt-12 max-w-2xl mx-auto italic leading-relaxed" style="font-family: 'Cormorant Garamond', Georgia, serif;">
     Me tek gjerne imot grupper for ei lærerik reise i frukthagen vår. Ta kontakt for å avtale tidspunkt.
   </p>
