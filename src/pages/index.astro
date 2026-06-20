@@ -10,8 +10,44 @@ import Layout from '../layouts/Layout.astro';
   description="Fuglestein Fruktgard er ein familiegard og handverkssideri i Ryfylke som produserer premium eplemost og sider."
   title="Fuglestein Fruktgard"
 >
-  <Hero />
-  <Services />
-  <About />
-  <Cta />
+  <Hero title="Ekte smakar frå frukthagen på Jelsa"
+  description="Me pressar eple, pærer og bær frå egne tre til frisk most, saft og handverkssider. Velkomen til gardsutsal og sidersmaking ved fjorden."
+  imageAlt="Oversiktsbilete av frukthagen frå lufta"/>
+
+  <Services
+  label="GARDSUTSAL"
+  title="Vegutsal – Ope heile døgnet"
+  description="Det vesle vegutsalet vårt er basert på sjølvbetjening og er ope 24 timer i døgnet, slik at du kan stikke innom når det passar deg for å kjøpe fersk frukt, eplemost og andre lokale produkt."
+  note="* Merk: Sal av sider (alkohol) fylgjer gjeldande lovverk og opningstider."
+/>
+
+  <About
+  title="Ein del av den lokale reisa" 
+  moreText="Les meir på nett" 
+  services={[
+    {
+      name: 'Fjord Norway',
+      description: 'Gardsbutikken vår er vakkert plassert ved fjorden i Suldal. På den offisielle reiselivsportalen for Vestlandet blir me trekte fram som eit flott stoppested for å smaka og kjøpa lokal eplemost og sider.',
+      image: '/assets/fjord.webp',
+      link: 'https://www.fjordnorway.com/en/see-and-do/farm-shop-at-fuglestein-fruktgard-in-suldal',
+      alt: 'Fuglestein Fruktgard presentert på den offisielle reiselivssida Fjord Norway'
+    },
+    {
+      name: 'Visit Norway',
+      description: 'Fruktdyrkinga på Fuglestein strekkjer seg heilt tilbake til 1838 i eit historisk område i Jelsa. Med 17 000 nye frukttre produserer me sider, eplemost og eplegele, som blir trekt fram på den offisielle reiselivsportalen.',
+      image: '/assets/press.webp',
+      link: 'https://www.visitnorway.com/listings/farm-shop-at-fuglestein-fruktgard-in-suldal/243969/',
+      alt: 'Gardsbutikken til Fuglestein Fruktgard omtalt på Visit Norway'
+    },
+    {
+      name: 'Visit Suldal',
+      description: 'Som ein del av "Matskattar frå Suldal" ligg garden vår idyllisk til ved Økstrafjorden. På den lokale turistguiden blir me trekt fram for gardsbesøk, omvising i eplehagen og smaksprøvar av lokalproduserte varer.',
+      image: '/assets/suldal.webp',
+      link: 'https://www.visitsuldal.com/eat-and-stay/fuglestein-fruktgard-fuglestein',
+      alt: 'Fuglestein Fruktgard som ein del av Matskattar frå Suldal hos Visit Suldal'
+    }
+  ]}/>
+  <Cta title="Planlegg eit besøk på garden" 
+  description="Ønskjer du omvising for grupper, teambuilding eller ei skreddarsydd sidersmaking i eplehagen? Ta kontakt med oss, så planlegg me ei unik oppleving saman."
+  buttonText="Kontakt oss"/>
 </Layout>

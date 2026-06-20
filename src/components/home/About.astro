@@ -1,34 +1,28 @@
 ---
-const services = [
-  {
-    name: 'Fjord Norway',
-    description: 'Gardsbutikken vår er vakkert plassert ved fjorden i Suldal. På den offisielle reiselivsportalen for Vestlandet blir me trekte fram som eit flott stoppested for å smaka og kjøpa lokal eplemost og sider.',
-    image: '/assets/fjord.webp',
-    link: 'https://www.fjordnorway.com/en/see-and-do/farm-shop-at-fuglestein-fruktgard-in-suldal',
-    alt: 'Fuglestein Fruktgard presentert på den offisielle reiselivssida Fjord Norway'
-  },
-  {
-    name: 'Visit Norway',
-    description: 'Fruktdyrkinga på Fuglestein strekkjer seg heilt tilbake til 1838 i eit historisk område i Jelsa. Med 17 000 nye frukttre produserer me sider, eplemost og eplegele, som blir trekt fram på den offisielle reiselivsportalen.',
-    image: '/assets/press.webp',
-    link: 'https://www.visitnorway.com/listings/farm-shop-at-fuglestein-fruktgard-in-suldal/243969/',
-    alt: 'Gardsbutikken til Fuglestein Fruktgard omtalt på Visit Norway'
-  },
-  {
-    name: 'Visit Suldal',
-    description: 'Som ein del av "Matskattar frå Suldal" ligg garden vår idyllisk til ved Økstrafjorden. På den lokale turistguiden blir me trekt fram for gardsbesøk, omvising i eplehagen og smaksprøvar av lokalproduserte varer.',
-    image: '/assets/suldal.webp',
-    link: 'https://www.visitsuldal.com/eat-and-stay/fuglestein-fruktgard-fuglestein',
-    alt: 'Fuglestein Fruktgard som ein del av Matskattar frå Suldal hos Visit Suldal'
-  },
-];
+// src/components/About.astro
+interface Service {
+  name: string;
+  description: string;
+  image: string;
+  link: string;
+  alt: string;
+}
+
+interface Props {
+  title: string;
+  moreText: string;
+  services: Service[];
+}
+
+const { title, moreText, services } = Astro.props;
 ---
+
 <section class="py-16 sm:py-20">
   <div class="mx-auto reveal max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
     <div class="flex flex-col gap-16">
       
       <h2 class="text-4xl font-light tracking-tight sm:text-5xl" style="font-family: 'Cormorant Garamond', Georgia, serif;">
-        Ein del av den lokale reisa
+        {title}
       </h2>
       
       <div class="grid reveal gap-12 lg:grid-cols-3">
@@ -58,7 +52,7 @@ const services = [
                 </p>
                 
                 <div class="mt-2 flex reveal items-center text-[10px] font-medium tracking-[0.2em] uppercase text-primary-500 transition-colors group-hover:text-primary-900 dark:group-hover:text-white">
-                  Les meir på nett →
+                  {moreText} →
                 </div>
               </div>
             </a>

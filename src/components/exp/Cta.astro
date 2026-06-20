@@ -1,36 +1,16 @@
 ---
-const questions = [
-  {
-    id: 'faq-1',
-    title: 'Må eg bestille omvising på førehand?',
-    answer: 'Ja, me set pris på at de melder frå på førehand. Slik kan me sikre at me har god tid til å ta imot dykk og gi dykk ei best mogleg oppleving i frukthagen.',
-  },
-  {
-    id: 'faq-2',
-    title: 'Kan ein betale med Vipps?',
-    answer: 'Ja, me tek imot betaling via Vipps i både gardsutsalet og ved booking av opplevingar. Det er den enklaste og raskaste måten å gjere opp for seg på.',
-  },
-  {
-    id: 'faq-3',
-    title: "Er gardsutsalet ope kvar dag?",
-    answer: 'Ja, gardsutsalet vårt er ope 24 timar i døgnet, sju dagar i veka. Her kan du handle eplejuice, syltetøy og andre produkt på eiga hand når det måtte passe deg.',
-  },
-  {
-    id: 'faq-4',
-    title: "Tek de imot store grupper?",
-    answer: 'Me tek gjerne imot grupper, anten det er vener, familie eller bedrifter. Ta kontakt med oss i god tid, så legg me til rette for eit skreddarsydd opplegg.',
-  },
-  {
-    id: 'faq-5',
-    title: 'Kor kan eg parkere?',
-    answer: 'Me har eigne parkeringsplassar rett ved gardsutsalet. Det er enkelt å køyre heilt fram, og det er god plass til både bilar og mindre bussar.',
-  },
-  {
-    id: 'faq-6',
-    title: 'Kva slags fottøy bør eg ha på meg?',
-    answer: 'Sidan me har ein stor frukthage med terreng som kan vere ujamt, tilrår me gode sko som toler litt utebruk. Då får du den beste turopplevinga i hagen vår.',
-  },
-];
+interface Question {
+  id: string;
+  title: string;
+  answer: string;
+}
+
+interface Props {
+  title: string;
+  questions: Question[];
+}
+
+const { title, questions } = Astro.props;
 ---
 
 <section class="py-16 sm:py-20">
@@ -39,7 +19,7 @@ const questions = [
       
       <div>
         <h2 class="text-4xl font-light tracking-tight sm:text-5xl" style="font-family: 'Cormorant Garamond', Georgia, serif;">
-          Ofte stilte spørsmål
+          {title}
         </h2>
       </div>
 
@@ -73,13 +53,7 @@ const questions = [
                         {question.title}
                       </span>
                       <span class="ml-6 flex h-7 items-center">
-                        <svg
-                          class="text-primary-600 dark:text-primary-400 h-6 w-6 transform transition duration-300"
-                          x-bind:class="{ '-rotate-180': isOpen, 'rotate-0': !isOpen }"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                        >
+                        <svg class="text-primary-600 dark:text-primary-400 h-6 w-6 transform transition duration-300" x-bind:class="{ '-rotate-180': isOpen, 'rotate-0': !isOpen }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                           <path d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z" />
                         </svg>
                       </span>

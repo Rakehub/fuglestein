@@ -1,0 +1,56 @@
+---
+import About from '../../components/home/About.astro';
+import Cta from '../../components/home/Cta.astro';
+import Hero from '../../components/home/Hero.astro';
+import Services from '../../components/home/Services.astro';
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  description="Fuglestein Fruktgard er ein familiegard og handverkssideri i Ryfylke som produserer premium eplemost og sider."
+  title="Fuglestein Fruktgard"
+>
+
+
+  <Hero title="Authentic flavors from the orchard in Jelsa"
+  description="We press apples, pears, and berries from our own trees into fresh juice, cordial, and craft cider. Welcome to our farm shop and cider tasting by the fjord."
+  imageAlt="Aerial view of the orchard"/>
+
+  <Services
+  label="FARM SHOP"
+  title="Roadside shop – Open 24/7"
+  description="Our small roadside shop is based on self-service and is open 24 hours a day, so you can stop by whenever it suits you to buy fresh fruit, apple juice, and other local products."
+  note="* Note: Sale of cider (alcohol) follows current legislation and opening hours."
+/>
+
+  <About title="Part of the local journey" 
+  moreText="Read more online" 
+  services={[
+    {
+      name: 'Fjord Norway',
+      description: 'Our farm shop is beautifully situated by the fjord in Suldal. Featured on the official tourism portal for Western Norway as a great stop to taste and buy local apple juice and cider.',
+      image: '/assets/fjord.webp',
+      link: 'https://www.fjordnorway.com/en/see-and-do/farm-shop-at-fuglestein-fruktgard-in-suldal',
+      alt: 'Fuglestein Fruktgard presented on the official Fjord Norway tourism site'
+    },
+    {
+      name: 'Visit Norway',
+      description: 'Fruit farming at Fuglestein dates back to 1838 in a historical area of Jelsa. With 17,000 new fruit trees, we produce cider, apple juice, and apple jelly, all featured on the official national tourism portal.',
+      image: '/assets/press.webp',
+      link: 'https://www.visitnorway.com/listings/farm-shop-at-fuglestein-fruktgard-in-suldal/243969/',
+      alt: 'Fuglestein Fruktgard farm shop featured on Visit Norway'
+    },
+    {
+      name: 'Visit Suldal',
+      description: 'As part of "Food Treasures of Suldal," our farm is idyllically located by the Økstrafjord. The local tourist guide highlights us for farm visits, orchard tours, and tastings of locally produced goods.',
+      image: '/assets/suldal.webp',
+      link: 'https://www.visitsuldal.com/eat-and-stay/fuglestein-fruktgard-fuglestein',
+      alt: 'Fuglestein Fruktgard as part of Food Treasures of Suldal at Visit Suldal'
+    }
+  ]}/>
+
+  <Cta title="Plan your visit to the farm" 
+  description="Are you looking for group tours, team building, or a custom cider tasting in the orchard? Get in touch with us, and we will plan a unique experience together."
+  buttonText="Contact us"/>
+  
+</Layout>

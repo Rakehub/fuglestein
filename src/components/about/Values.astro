@@ -1,5 +1,16 @@
 ---
+interface Props {
+  slogan: string;
+  location: string;
+  btnPrimary: string;
+  btnSecondary: string;
+  linkPrimary: string;   
+  linkSecondary: string;
+}
+
+const { slogan, location, btnPrimary, btnSecondary, linkPrimary, linkSecondary } = Astro.props;
 ---
+
 <section class="bg-primary-50 dark:bg-primary-950 transition-colors duration-300 py-28 sm:py-36">
   <div class="mx-auto max-w-2xl px-6 flex flex-col items-center text-center gap-10">
 
@@ -11,21 +22,21 @@
 
     <p class="text-3xl sm:text-4xl reveal font-light italic text-primary-900 dark:text-primary-100 leading-snug"
        style="font-family: 'Cormorant Garamond', Georgia, serif;">
-      Frå Ryfylke-fjorden til flaska di — med stoltheit gjennom generasjonar.
+      {slogan}
     </p>
 
     <span class="text-[10px] tracking-[0.3em] uppercase text-primary-400 dark:text-primary-600">
-      Fuglestein Fruktgard · Jelsa, Norge
+      {location}
     </span>
 
-    <div class="flex flex-wrap reveal gap-4 justify-center pt-2" style="transition-delay:450ms">
-      <a href="/product"
+    <div class="flex flex-wrap reveal gap-4 justify-center pt-2" style="transition-delay:350ms">
+      <a href={linkPrimary}
          class="px-8 py-3.5 text-[10px] tracking-[0.3em] uppercase bg-primary-900 dark:bg-primary-100 text-primary-50 dark:text-primary-900 hover:opacity-80 transition-opacity duration-200">
-        Oppdag våre produkt
+        {btnPrimary}
       </a>
-      <a href="/contact"
+      <a href={linkSecondary}
          class="px-8 py-3.5 text-[10px] reveal tracking-[0.3em] uppercase border border-primary-200 dark:border-primary-800 text-primary-900 dark:text-primary-100 hover:bg-primary-100 dark:hover:bg-primary-900 transition-colors duration-200">
-        Ta kontakt
+        {btnSecondary}
       </a>
     </div>
 

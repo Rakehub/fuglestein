@@ -1,19 +1,19 @@
 ---
-import PricingTable from '../components/product/PricingTable.astro'; // Ajusta la ruta según donde esté tu archivo
-import Layout from '../layouts/Layout.astro';
+import PricingTable from '../../components/product/PricingTable.astro'; // Ajusta la ruta según donde esté tu archivo
+import Layout from '../../layouts/Layout.astro';
 
-// Definimos los datos en noruego
+// Definimos los datos aquí para que el componente no tenga textos "hardcoded"
 const categories = [
-  { label: "Alle", value: "Alle" },
-  { label: "Sider", value: "Sider" },
-  { label: "Eplemost", value: "Eplemost" },
-  { label: "Pærmost", value: "Pærmost" }
+  { label: "All", value: "Alle" },
+  { label: "Cider", value: "Sider" },
+  { label: "Apple Juice", value: "Eplemost" },
+  { label: "Pear Juice", value: "Pærmost" }
 ];
 
 const catMap = { 
-  "Sider": "Sider", 
-  "Eplemost": "Eplemost", 
-  "Pærmost": "Pærmost" 
+  "Sider": "Cider", 
+  "Eplemost": "Apple Juice", 
+  "Pærmost": "Pear Juice" 
 };
 
 const products = [
@@ -32,11 +32,11 @@ const products = [
 ---
 
 <Layout
-  description="Utforsk vårt utvalg av lokalprodusert sider og eplemost."
-  title="Produkt | Fuglestein Fruktgard"
+  description="Explore our selection of home-grown cider and apple juice."
+  title="Products | Fuglestein Fruktgard"
 >
-  <PricingTable 
-    title="Gardsutsal" 
+  <PricingTable
+    title="Farm Shop" 
     categories={categories} 
     categoryMap={catMap} 
     products={products} 

@@ -1,3 +1,13 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  imageAlt: string;
+}
+
+const { title, description, imageAlt } = Astro.props;
+---
+
 <section class="py-16 sm:py-20">
   <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
     <div class="flex flex-col gap-16">
@@ -6,11 +16,11 @@
         <div class="flex max-w-3xl flex-col items-start gap-6 sm:gap-8">
 
           <h1 class="text-5xl font-light tracking-tight sm:text-6xl lg:text-7xl text-primary-950 dark:text-white leading-[1.1]" style="font-family: 'Cormorant Garamond', Georgia, serif;">
-            Ekte smakar frå frukthagen på Jelsa
+            {title}
           </h1>
 
           <p class="text-xl sm:text-2xl italic font-light text-primary-900/80 dark:text-primary-200/80 leading-relaxed max-w-2xl" style="font-family: 'Cormorant Garamond', Georgia, serif;">
-            Me pressar eple, pærer og bær frå egne tre til frisk most, saft og handverkssider. Velkomen til gardsutsal og sidersmaking ved fjorden.
+            {description}
           </p>
 
         </div>
@@ -24,7 +34,7 @@
           />
           <img
             src="/assets/drone_4k.jpg"
-            alt="Oversiktsbilete av frukthagen frå lufta"
+            alt={imageAlt}
             loading="eager"
             decoding="async"
             class="w-full h-full object-cover scale-[1.01]"

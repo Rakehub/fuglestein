@@ -1,36 +1,35 @@
 ---
-const categories = ["Alle", "Sider", "Eplemost", "Pærmost"];
-const products = [
-  { name: "Katja ", cat: "Eplemost", img: "assets/products/katja.png" },
-  { name: "Aroma", cat: "Eplemost", img: "assets/products/aroma.png" },
-  { name: "Freya", cat: "Eplemost", img: "assets/products/freya.png" },
-  { name: "Pær", cat: "Pærmost", img: "assets/products/paere.png" },
-  { name: "3 Liter", cat: "Eplemost", img: "assets/products/box.png" },
-  { name: "Rubinstep", cat: "Eplemost", img: "assets/products/rubinstep.png" },
-  { name: "Rosette", cat: "Eplemost", img: "assets/products/rosette.png" },
-  { name: "Morene", cat: "Sider", img: "assets/products/morene.png" },
-  { name: "Katja", cat: "Sider", img: "assets/products/katja_sid.png" },
-  { name: "Glimmer", cat: "Sider", img: "assets/products/glimmer.png" },
-  { name: "8-Skilling", cat: "Sider", img: "assets/products/8skilling.png" },
-];
+interface Product {
+  name: string;
+  cat: string; // Esto lo usaremos para filtrar internamente
+  img: string;
+}
+
+interface Props {
+  title: string;
+  categories: { label: string; value: string }[];
+  categoryMap: Record<string, string>; // Mapa para traducir: { "Eplemost": "Apple Juice" }
+  products: Product[];
+}
+
+const { title, categories, categoryMap, products } = Astro.props;
 ---
 
-<section class="py-16 bg-primary-70 dark:bg-primary-950 transition-colors duration-500">
+<section class="py-16 bg-primary-50 dark:bg-primary-950 transition-colors duration-500">
   <div class="max-w-6xl mx-auto px-6">
     
-    
     <h2 class="text-3xl font-bold mb-8 text-primary-900 dark:text-primary-50">
-      Gardsutsal
+      {title}
     </h2>
 
     <div class="flex gap-3 mb-12 overflow-x-auto pb-2" x-data="{ selected: 'Alle' }">
       {categories.map(cat => (
         <button
-          @click={`selected = '${cat}'; document.querySelectorAll('[data-product]').forEach(el => el.style.display = '${cat === "Alle" ? "block" : "none"}'); if('${cat}' !== 'Alle') document.querySelectorAll('[data-cat="${cat}"]').forEach(el => el.style.display = 'block');`}
-          :class={`selected === '${cat}' ? 'bg-primary-900 text-primary-50 dark:bg-primary-50 dark:text-primary-900' : 'bg-primary-100 text-primary-700 hover:bg-primary-200 dark:bg-primary-900 dark:text-primary-300 dark:hover:bg-primary-800 border border-primary-200 dark:border-primary-800'`}
+          @click={`selected = '${cat.value}'; document.querySelectorAll('[data-product]').forEach(el => el.style.display = '${cat.value === "Alle" ? "block" : "none"}'); if('${cat.value}' !== 'Alle') document.querySelectorAll('[data-cat="${cat.value}"]').forEach(el => el.style.display = 'block');`}
+          :class={`selected === '${cat.value}' ? 'bg-primary-900 text-primary-50 dark:bg-primary-50 dark:text-primary-900' : 'bg-primary-100 text-primary-700 hover:bg-primary-200 dark:bg-primary-900 dark:text-primary-300 dark:hover:bg-primary-800 border border-primary-200 dark:border-primary-800'`}
           class="px-6 py-2 rounded-full font-medium transition-all duration-300 whitespace-nowrap"
         >
-          {cat}
+          {cat.label}
         </button>
       ))}
     </div>
@@ -38,25 +37,15 @@ const products = [
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
       {products.map(p => (
         <div class="group flex flex-col h-full" data-product data-cat={p.cat}>
-          
           <div class="relative w-full aspect-[4/5] overflow-hidden rounded-xl bg-primary-100 dark:bg-primary-900 shadow-md hover:shadow-xl transition-shadow duration-300 border border-primary-200 dark:border-primary-800">
-           <img 
-            src={p.img} 
-            alt={p.name}
-            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-          />
-            
-            
+            <img src={p.img} alt={p.name} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
             <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 dark:group-hover:bg-white/10 transition-colors duration-300"></div>
           </div>
           
-          
           <div class="mt-4 flex flex-col flex-grow">
-            <h3 class="text-base font-semibold text-primary-900 dark:text-primary-50">
-              {p.name}
-            </h3>
+            <h3 class="text-base font-semibold text-primary-900 dark:text-primary-50">{p.name}</h3>
             <p class="text-sm text-primary-500 dark:text-primary-400 mt-1">
-              {p.cat}
+              {categoryMap[p.cat]}
             </p>
           </div>
         </div>
@@ -64,20 +53,3 @@ const products = [
     </div>
   </div>
 </section>
-
-<style>
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  [data-product] {
-    animation: fadeIn 0.3s ease-in-out;
-  }
-</style>

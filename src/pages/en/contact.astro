@@ -1,0 +1,27 @@
+---
+import ContactForm from '../../components/contact/ContactForm.astro';
+import ContactInfo from '../../components/contact/ContactInfo.astro';
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  description="Ta kontakt med oss på Fuglestein Fruktgard."
+  title="Kontakt · Fuglestein Fruktgard"
+>
+  <ContactInfo
+  header1="Information and contact"
+  phoneLabel="Call us"
+  emailLabel="Send email"
+  header2="Fuglestein Fruktgard"
+  contactPersonLabel="Contact person"
+  contactName="Jon-Anders Fuglestein"
+  addressLabel="Visit us"
+  addressText="Økstrafjordvegen 1178, 4234 Jelsa"
+  addressLink="https://www.google.com/maps?cid=3775329842813194832&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAMYASAF&hl=no&gl=NO&source=embed"
+  shopLabel="Farm shop"
+  shopStatus="Open 24 hours a day"
+  shopSub="Self-service"
+/>
+
+  <ContactForm title="Glimpses from the farm"/>
+</Layout>

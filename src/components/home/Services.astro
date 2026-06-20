@@ -1,3 +1,14 @@
+---
+interface Props {
+  label: string;
+  title: string;
+  description: string;
+  note: string;
+}
+
+const { label, title, description, note } = Astro.props;
+---
+
 <section class="py-16 sm:py-20 bg-neutral-50/50 dark:bg-neutral-950/20">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
@@ -17,18 +28,19 @@
       <div class="order-1 lg:order-none lg:col-span-7 flex flex-col items-start gap-8">
 
         <span class="text-[10px] reveal tracking-[0.3em] uppercase text-primary-500 dark:text-primary-400 font-medium">
-          GARDSUTSAL
+          {label}
         </span>
 
         <h2 class="text-4xl reveal sm:text-5xl font-light tracking-tight text-primary-950 dark:text-primary-50" style="font-family: 'Cormorant Garamond', Georgia, serif;">
-          Vegutsal – Ope heile døgnet
+          {title}
         </h2>
 
-        <p class="text-xl revealsm:text-2xl font-light italic leading-relaxed text-primary-950/80 dark:text-primary-200/80" style="font-family: 'Cormorant Garamond', Georgia, serif;">
-          Det vesle vegutsalet vårt er basert på sjølvbetjening og er ope 24 timer i døgnet, slik at du kan stikke innom når det passar deg for å kjøpe fersk frukt, eplemost og andre lokale produkt.
+        <p class="text-xl reveal sm:text-2xl font-light italic leading-relaxed text-primary-950/80 dark:text-primary-200/80" style="font-family: 'Cormorant Garamond', Georgia, serif;">
+          {description}
+        </p>
 
-        <p class="text-sm revealtext-primary-950/40 dark:text-primary-200/40 italic">
-          * Merk: Sal av sider (alkohol) fylgjer gjeldande lovverk og opningstider.
+        <p class="text-sm reveal text-primary-950/40 dark:text-primary-200/40 italic">
+          {note}
         </p>
 
       </div>

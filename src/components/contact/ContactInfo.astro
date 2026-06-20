@@ -1,73 +1,70 @@
+---
+interface Props {
+  header1: string;
+  phoneLabel: string;
+  emailLabel: string;
+  header2: string;
+  contactPersonLabel: string;
+  contactName: string;
+  addressLabel: string;
+  addressText: string;
+  addressLink: string;
+  shopLabel: string;
+  shopStatus: string;
+  shopSub: string;
+}
+
+const { 
+  header1, phoneLabel, emailLabel, header2, contactPersonLabel, 
+  contactName, addressLabel, addressText, addressLink, shopLabel, 
+  shopStatus, shopSub 
+} = Astro.props;
+---
+
 <section class="bg-primary-50 dark:bg-primary-950 text-primary-900 dark:text-primary-100 transition-colors duration-300">
   <div class="mx-auto max-w-4xl px-6 lg:px-8 py-16 flex flex-col gap-14">
 
+    <!-- Sección 1 -->
     <div class="flex flex-col gap-6">
       <div class="flex items-center gap-4">
         <div class="flex-1 h-px bg-primary-200 dark:bg-primary-800"></div>
-        <span class="text-[10px] tracking-[0.4em] uppercase text-primary-400 dark:text-primary-500 flex-shrink-0">
-          Informasjon og kontakt
-        </span>
+        <span class="text-[10px] tracking-[0.4em] uppercase text-primary-400 dark:text-primary-500 flex-shrink-0">{header1}</span>
         <div class="flex-1 h-px bg-primary-200 dark:bg-primary-800"></div>
       </div>
-
       <div class="grid gap-6 sm:grid-cols-2">
-
         <a href="tel:+4741350255" class="group flex flex-col gap-2 border-b border-primary-200 dark:border-primary-800 pb-6 hover:border-primary-400 transition-colors duration-300">
-          <span class="text-[10px] tracking-[0.35em] uppercase text-primary-400 dark:text-primary-500">Ring oss</span>
-          <span class="text-2xl font-light text-primary-950 dark:text-white group-hover:text-primary-600 transition-colors" style="font-family: 'Cormorant Garamond', Georgia, serif;">
-            +47 413 50 255
-          </span>
+          <span class="text-[10px] tracking-[0.35em] uppercase text-primary-400 dark:text-primary-500">{phoneLabel}</span>
+          <span class="text-2xl font-light text-primary-950 dark:text-white group-hover:text-primary-600 transition-colors" style="font-family: 'Cormorant Garamond', Georgia, serif;">+47 413 50 255</span>
         </a>
-
         <a href="mailto:fuglesteinfruktgard@gmail.com" class="group flex flex-col gap-2 border-b border-primary-200 dark:border-primary-800 pb-6 hover:border-primary-400 transition-colors duration-300">
-          <span class="text-[10px] tracking-[0.35em] uppercase text-primary-400 dark:text-primary-500">Send e-post</span>
-          <span class="text-2xl font-light text-primary-950 dark:text-white group-hover:text-primary-600 transition-colors" style="font-family: 'Cormorant Garamond', Georgia, serif;">
-            fuglesteinfruktgard@gmail.com
-          </span>
+          <span class="text-[10px] tracking-[0.35em] uppercase text-primary-400 dark:text-primary-500">{emailLabel}</span>
+          <span class="text-2xl font-light text-primary-950 dark:text-white group-hover:text-primary-600 transition-colors" style="font-family: 'Cormorant Garamond', Georgia, serif;">fuglesteinfruktgard@gmail.com</span>
         </a>
-
       </div>
     </div>
 
-    <!-- Fuglestein Fruktgard -->
+    <!-- Sección 2 -->
     <div class="flex flex-col gap-6">
       <div class="flex items-center gap-4">
         <div class="flex-1 h-px bg-primary-200 dark:bg-primary-800"></div>
-        <span class="text-[10px] tracking-[0.4em] uppercase text-primary-400 dark:text-primary-500 flex-shrink-0">
-          Fuglestein Fruktgard
-        </span>
+        <span class="text-[10px] tracking-[0.4em] uppercase text-primary-400 dark:text-primary-500 flex-shrink-0">{header2}</span>
         <div class="flex-1 h-px bg-primary-200 dark:bg-primary-800"></div>
       </div>
-
       <div class="grid gap-6 sm:grid-cols-3">
-
         <div class="flex flex-col gap-2 border-b border-primary-200 dark:border-primary-800 pb-6">
-          <span class="text-[10px] tracking-[0.35em] uppercase text-primary-400 dark:text-primary-500">Kontaktperson</span>
-          <p class="text-xl font-light text-primary-950 dark:text-white" style="font-family: 'Cormorant Garamond', Georgia, serif;">
-            Jon-Anders Fuglestein
-          </p>
+          <span class="text-[10px] tracking-[0.35em] uppercase text-primary-400 dark:text-primary-500">{contactPersonLabel}</span>
+          <p class="text-xl font-light text-primary-950 dark:text-white" style="font-family: 'Cormorant Garamond', Georgia, serif;">{contactName}</p>
         </div>
-
         <div class="flex flex-col gap-2 border-b border-primary-200 dark:border-primary-800 pb-6">
-          <span class="text-[10px] tracking-[0.35em] uppercase text-primary-400 dark:text-primary-500">Besøk oss</span>
-          <a href="https://www.google.com/maps/search/?api=1&query=Fuglestein+Fruktgard,+Økstrafjordvegen+1178,+4234+Jelsa" 
-            target="_blank" 
-            class="text-xl font-light text-primary-950 dark:text-white leading-relaxed hover:opacity-70 transition-opacity" 
-            style="font-family: 'Cormorant Garamond', Georgia, serif;">
-              Økstrafjordvegen 1178, 4234 Jelsa
-          </a>
+          <span class="text-[10px] tracking-[0.35em] uppercase text-primary-400 dark:text-primary-500">{addressLabel}</span>
+          <a href={addressLink} target="_blank" class="text-xl font-light text-primary-950 dark:text-white leading-relaxed hover:opacity-70 transition-opacity" style="font-family: 'Cormorant Garamond', Georgia, serif;">{addressText}</a>
         </div>
-
         <div class="flex flex-col gap-2 border-b border-primary-200 dark:border-primary-800 pb-6">
-          <span class="text-[10px] tracking-[0.35em] uppercase text-primary-400 dark:text-primary-500">Gardsutsal</span>
-          <p class="text-xl font-light text-primary-950 dark:text-white" style="font-family: 'Cormorant Garamond', Georgia, serif;">
-            Ope 24 timer i døgnet
-          </p>
-          <span class="text-[10px] tracking-[0.2em] uppercase text-primary-400 dark:text-primary-500">Sjølvbetjening</span>
+          <span class="text-[10px] tracking-[0.35em] uppercase text-primary-400 dark:text-primary-500">{shopLabel}</span>
+          <p class="text-xl font-light text-primary-950 dark:text-white" style="font-family: 'Cormorant Garamond', Georgia, serif;">{shopStatus}</p>
+          <span class="text-[10px] tracking-[0.2em] uppercase text-primary-400 dark:text-primary-500">{shopSub}</span>
         </div>
-
       </div>
     </div>
-
   </div>
 </section>

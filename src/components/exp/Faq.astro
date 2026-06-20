@@ -1,24 +1,29 @@
 ---
-const experiences = [
-  {
-    id: 'sider',
-    name: 'Sidersmaking',
-    description: 'Smak gjennom utvalet vårt med ei kort historie om garden.',
-    duration: 'ca. 1 time',
-  },
-  {
-    id: 'omvising',
-    name: 'Omvising i eplehagen',
-    description: 'Gå gjennom rekkene av frukttre med oss som guide.',
-    duration: 'ca. 1,5 time',
-  },
-  {
-    id: 'kombinert',
-    name: 'Kombinert oppleving',
-    description: 'Omvising og sidersmaking samla i ein avslappa formiddag eller ettermiddag.',
-    duration: 'ca. 2,5 time',
-  },
-];
+// src/components/exp/Faq.astro
+interface Experience {
+  id: string;
+  name: string;
+  description: string;
+  duration: string;
+}
+
+interface Props {
+  title: string;
+  subtitle: string;
+  linkText: string;
+  labelStep: string;
+  labelName: string;
+  labelPhone: string;
+  labelPeople: string;
+  labelDate: string;
+  buttonText: string;
+  experiences: Experience[];
+}
+
+const { 
+  title, subtitle, linkText, labelStep, labelName, 
+  labelPhone, labelPeople, labelDate, buttonText, experiences 
+} = Astro.props;
 ---
 
 <section class="bg-primary-50 dark:bg-primary-950 transition-colors duration-300 py-24 sm:py-32 reveal">
@@ -28,25 +33,20 @@ const experiences = [
       <span class="text-[10px] tracking-[0.35em] uppercase text-primary-400 dark:text-primary-500">
         Bestill di oppleving
       </span>
-      <h2
-        class="text-3xl sm:text-4xl font-light italic text-primary-900 dark:text-primary-100"
-        style="font-family: 'Cormorant Garamond', Georgia, serif;"
-      >
-        Planlegg besøket ditt
+      <h2 class="text-3xl sm:text-4xl font-light italic text-primary-900 dark:text-primary-100" style="font-family: 'Cormorant Garamond', Georgia, serif;">
+        {title}
       </h2>
       <p class="text-base text-primary-500 dark:text-primary-400 max-w-md leading-relaxed mb-4">
-        Vel di oppleving, og send oss ein forespurnad. Vil du heller sjå kva me lagar?
+        {subtitle}
       </p>
       <a href="/product" class="text-primary-900 dark:text-primary-100 underline decoration-primary-300 underline-offset-4 hover:text-primary-600 transition-colors">
-        Oppdag våre produkt
+        {linkText}
       </a>
     </div>
 
     <div x-data={`experienceBuilder(${JSON.stringify(experiences)})`}>
-
-
       <p class="text-[11px] tracking-[0.2em] uppercase text-primary-400 dark:text-primary-500 mb-4">
-        01 · Vel oppleving
+        {labelStep}
       </p>
 
       <div class="grid gap-4 sm:grid-cols-3 mb-12">
@@ -57,78 +57,39 @@ const experiences = [
             class="text-left border px-5 py-5 transition-colors duration-200"
             :class="selected === exp.id ? 'border-primary-900 dark:border-primary-100' : 'border-primary-200 dark:border-primary-800 hover:border-primary-400 dark:hover:border-primary-600'"
           >
-            <p
-              class="text-lg font-medium text-primary-900 dark:text-primary-100 mb-1"
-              style="font-family: 'Cormorant Garamond', Georgia, serif;"
-              x-text="exp.name"
-            ></p>
+            <p class="text-lg font-medium text-primary-900 dark:text-primary-100 mb-1" style="font-family: 'Cormorant Garamond', Georgia, serif;" x-text="exp.name"></p>
             <p class="text-sm text-primary-500 dark:text-primary-400 leading-relaxed mb-3" x-text="exp.description"></p>
             <p class="text-[11px] tracking-wide text-primary-400 dark:text-primary-600" x-text="exp.duration"></p>
           </button>
         </template>
       </div>
 
-
       <div class="grid gap-8 sm:grid-cols-2 mb-8">
-  <div>
-    <label class="block text-[10px] tracking-[0.3em] uppercase text-primary-400 dark:text-primary-500 mb-2">
-      Namn *
-    </label>
-    <input
-      type="text"
-      x-model="name"
-      required
-      class="w-full bg-transparent border-0 border-b border-primary-200 dark:border-primary-800 px-0 py-2 text-base text-primary-900 dark:text-primary-100 focus:border-primary-900 dark:focus:border-primary-100 focus:outline-none transition-colors duration-300"
-    />
-  </div>
-  
-  <div>
-    <label class="block text-[10px] tracking-[0.3em] uppercase text-primary-400 dark:text-primary-500 mb-2">
-      Telefon (valgfritt)
-    </label>
-    <input
-      type="tel"
-      x-model="phone"
-      class="w-full bg-transparent border-0 border-b border-primary-200 dark:border-primary-800 px-0 py-2 text-base text-primary-900 dark:text-primary-100 focus:border-primary-900 dark:focus:border-primary-100 focus:outline-none transition-colors duration-300"
-    />
-  </div>
-</div>
-      <div class="grid gap-8 sm:grid-cols-2 mb-12">
         <div>
-          <label class="block text-[10px] tracking-[0.3em] uppercase text-primary-400 dark:text-primary-500 mb-2">
-            Antal personar
-          </label>
-          <input
-            type="number"
-            min="1"
-            x-model="people"
-            class="w-full bg-transparent border-0 border-b border-primary-200 dark:border-primary-800 px-0 py-2 text-base text-primary-900 dark:text-primary-100 focus:border-primary-900 dark:focus:border-primary-100 focus:outline-none transition-colors duration-300"
-          />
+          <label class="block text-[10px] tracking-[0.3em] uppercase text-primary-400 dark:text-primary-500 mb-2">{labelName}</label>
+          <input type="text" x-model="name" required class="w-full bg-transparent border-0 border-b border-primary-200 dark:border-primary-800 px-0 py-2 text-base text-primary-900 dark:text-primary-100 focus:border-primary-900 dark:focus:border-primary-100 focus:outline-none transition-colors duration-300" />
         </div>
         <div>
-          <label class="block text-[10px] tracking-[0.3em] uppercase text-primary-400 dark:text-primary-500 mb-2">
-            Ønska tidspunkt
-          </label>
-          <input
-            type="date"
-            x-model="date"
-            class="w-full bg-transparent border-0 border-b border-primary-200 dark:border-primary-800 px-0 py-2 text-base text-primary-900 dark:text-primary-100 focus:border-primary-900 dark:focus:border-primary-100 focus:outline-none transition-colors duration-300"
-          />
+          <label class="block text-[10px] tracking-[0.3em] uppercase text-primary-400 dark:text-primary-500 mb-2">{labelPhone}</label>
+          <input type="tel" x-model="phone" class="w-full bg-transparent border-0 border-b border-primary-200 dark:border-primary-800 px-0 py-2 text-base text-primary-900 dark:text-primary-100 focus:border-primary-900 dark:focus:border-primary-100 focus:outline-none transition-colors duration-300" />
+        </div>
+      </div>
+
+      <div class="grid gap-8 sm:grid-cols-2 mb-12">
+        <div>
+          <label class="block text-[10px] tracking-[0.3em] uppercase text-primary-400 dark:text-primary-500 mb-2">{labelPeople}</label>
+          <input type="number" min="1" x-model="people" class="w-full bg-transparent border-0 border-b border-primary-200 dark:border-primary-800 px-0 py-2 text-base text-primary-900 dark:text-primary-100 focus:border-primary-900 dark:focus:border-primary-100 focus:outline-none transition-colors duration-300" />
+        </div>
+        <div>
+          <label class="block text-[10px] tracking-[0.3em] uppercase text-primary-400 dark:text-primary-500 mb-2">{labelDate}</label>
+          <input type="date" x-model="date" class="w-full bg-transparent border-0 border-b border-primary-200 dark:border-primary-800 px-0 py-2 text-base text-primary-900 dark:text-primary-100 focus:border-primary-900 dark:focus:border-primary-100 focus:outline-none transition-colors duration-300" />
         </div>
       </div>
 
       <div class="flex items-center justify-between gap-6 flex-wrap border-t border-primary-100 dark:border-primary-900 pt-8">
-        <p
-          class="text-base italic text-primary-600 dark:text-primary-300"
-          style="font-family: 'Cormorant Garamond', Georgia, serif;"
-          x-text="summary"
-        ></p>
-        <button
-          type="button"
-          @click="sendRequest()"
-          class="px-8 py-3.5 text-[10px] tracking-[0.3em] uppercase bg-primary-900 dark:bg-primary-100 text-primary-50 dark:text-primary-900 hover:opacity-80 transition-opacity duration-200"
-        >
-          Send forespurnad
+        <p class="text-base italic text-primary-600 dark:text-primary-300" style="font-family: 'Cormorant Garamond', Georgia, serif;" x-text="summary"></p>
+        <button type="button" @click="sendRequest()" class="px-8 py-3.5 text-[10px] tracking-[0.3em] uppercase bg-primary-900 dark:bg-primary-100 text-primary-50 dark:text-primary-900 hover:opacity-80 transition-opacity duration-200">
+          {buttonText}
         </button>
       </div>
     </div>
