@@ -5,11 +5,6 @@ import { ViewTransitions } from 'astro:transitions';
 import Footer from '../components/layout/Footer.astro';
 import Header from '../components/layout/Header.astro';
 
-interface Props {
-  description: string;
-  title: string;
-}
-
 const { description, title } = Astro.props;
 ---
 
@@ -18,57 +13,149 @@ const { description, title } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
     <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" />
+
     <ViewTransitions />
+
+    <style is:global>
+      [x-cloak] { display: none !important; }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+                    transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+        will-change: opacity, transform;
+      }
+
+      .reveal.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
   </head>
-  <body
-    class="bg-primary-50 text-primary-950 dark:bg-primary-950 dark:text-primary-200 antialiased transition flex flex-col min-h-screen"
-  >
+
+  <body class="bg-primary-50 text-primary-950 dark:bg-primary-950 dark:text-primary-200 antialiased flex flex-col min-h-screen">
     <Header />
+
     <main class="flex-grow">
       <slot />
     </main>
+
     <Footer />
-    <style is:global>
-      [x-cloak] {
-        display: none !important;
-      }
-    </style>
+
+    <!-- =========================
+         ALPINE (ÚNICA INSTANCIA)
+    ========================== -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
     <script>
-      import Alpine from 'alpinejs';
-      import collapse from '@alpinejs/collapse';
+      document.addEventListener('alpine:init', () => {
 
-      Alpine.plugin(collapse);
+        /* THEME STORE */
+        Alpine.store('theme', {
+          init() {
+            this.isDark =
+              localStorage.getItem('theme') === 'dark' ||
+              window.matchMedia('(prefers-color-scheme: dark)').matches;
+          },
+          isDark: false,
+          toggle() {
+            this.isDark = !this.isDark;
+            localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
+          },
+        });
 
-      Alpine.store('theme', {
-        init() {
-          this.isDark = (() => {
-            if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-              return localStorage.getItem('theme') === 'dark';
+        /* EXPERIENCE COMPONENT */
+        Alpine.data('experienceBuilder', (data) => ({
+          experiences: data || [],
+          selected: '',
+          people: 2,
+          date: new Date().toISOString().split('T')[0], // fecha de hoy por defecto
+          name: '',
+          phone: '',
+
+          init() {
+            if (this.experiences.length) {
+              this.selected = this.experiences[0].id;
             }
-            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-              return true;
+          },
+
+          get current() {
+            return this.experiences.find(e => e.id === this.selected);
+          },
+
+          get summary() {
+            if (!this.current) return 'Vel ei oppleving...';
+
+            const unit = this.people == 1 ? 'person' : 'personar';
+            return `${this.current.name} for ${this.people} ${unit}`;
+          },
+
+          formatDate(isoDate) {
+            if (!isoDate) return 'ikkje spesifisert';
+            const months = [
+              'januar', 'februar', 'mars', 'april', 'mai', 'juni',
+              'juli', 'august', 'september', 'oktober', 'november', 'desember'
+            ];
+            const [year, month, day] = isoDate.split('-');
+            return `${parseInt(day, 10)}. ${months[parseInt(month, 10) - 1]} ${year}`;
+          },
+
+          sendRequest() {
+            if (!this.name.trim()) {
+              alert('Skriv inn namnet ditt før du sender forespurnaden.');
+              return;
             }
-            return false;
-          })();
-        },
 
-        isDark: false,
+            const subject = encodeURIComponent(
+              "Forespurnad: " + this.current.name
+            );
 
-        toggle() {
-          this.isDark = !this.isDark;
-          localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
-        },
+            const bodyText =
+              "Hei!\n\n" +
+              "Namn: " + this.name + "\n" +
+              (this.phone.trim() ? "Telefon: " + this.phone + "\n" : "") +
+              "\n" +
+              "Oppleving: " + this.current.name + "\n" +
+              "Varigheit: " + this.current.duration + "\n" +
+              "Personar: " + this.people + "\n" +
+              "Dato: " + this.formatDate(this.date) + "\n\n" +
+              "Vennleg helsing,\n" + this.name;
+
+            const body = encodeURIComponent(bodyText);
+
+            const mailto = `mailto:fuglesteinfruktgard@gmail.com?subject=${subject}&body=${body}`;
+
+            window.location.assign(mailto);
+          }
+        }));
       });
 
-      window.Alpine = Alpine;
-      Alpine.start();
+      /* =========================
+         SCROLL REVEAL (ROBUSTO)
+      ========================== */
+
+      function reveal() {
+        document.querySelectorAll('.reveal').forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight - 80) {
+            el.classList.add('show');
+          }
+        });
+      }
+
+      function initReveal() {
+        reveal();
+        window.addEventListener('scroll', reveal, { passive: true });
+      }
+
+      document.addEventListener('DOMContentLoaded', initReveal);
+      document.addEventListener('astro:page-load', initReveal);
+      document.addEventListener('astro:after-swap', initReveal);
     </script>
   </body>
 </html>

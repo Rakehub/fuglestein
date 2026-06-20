@@ -19,11 +19,9 @@ const experiences = [
     duration: 'ca. 2,5 time',
   },
 ];
-
-const experiencesJson = JSON.stringify(experiences);
 ---
 
-<section class="bg-primary-50 dark:bg-primary-950 transition-colors duration-300 py-24 sm:py-32">
+<section class="bg-primary-50 dark:bg-primary-950 transition-colors duration-300 py-24 sm:py-32 reveal">
   <div class="mx-auto max-w-3xl px-6 lg:px-8">
 
     <div class="flex flex-col items-center text-center gap-5 mb-16">
@@ -36,15 +34,16 @@ const experiencesJson = JSON.stringify(experiences);
       >
         Planlegg besøket ditt
       </h2>
-      <p class="text-base text-primary-500 dark:text-primary-400 max-w-md leading-relaxed">
-        Vel di oppleving, og send oss ein forespurnad — me svarar deg så raskt me kan.
+      <p class="text-base text-primary-500 dark:text-primary-400 max-w-md leading-relaxed mb-4">
+        Vel di oppleving, og send oss ein forespurnad. Vil du heller sjå kva me lagar?
       </p>
+      <a href="/product" class="text-primary-900 dark:text-primary-100 underline decoration-primary-300 underline-offset-4 hover:text-primary-600 transition-colors">
+        Oppdag våre produkt
+      </a>
     </div>
 
-    <div
-      x-data="experienceBuilder"
-      x-init={`init(${experiencesJson})`}
-    >
+    <div x-data={`experienceBuilder(${JSON.stringify(experiences)})`}>
+
 
       <p class="text-[11px] tracking-[0.2em] uppercase text-primary-400 dark:text-primary-500 mb-4">
         01 · Vel oppleving
@@ -69,6 +68,31 @@ const experiencesJson = JSON.stringify(experiences);
         </template>
       </div>
 
+
+      <div class="grid gap-8 sm:grid-cols-2 mb-8">
+  <div>
+    <label class="block text-[10px] tracking-[0.3em] uppercase text-primary-400 dark:text-primary-500 mb-2">
+      Namn *
+    </label>
+    <input
+      type="text"
+      x-model="name"
+      required
+      class="w-full bg-transparent border-0 border-b border-primary-200 dark:border-primary-800 px-0 py-2 text-base text-primary-900 dark:text-primary-100 focus:border-primary-900 dark:focus:border-primary-100 focus:outline-none transition-colors duration-300"
+    />
+  </div>
+  
+  <div>
+    <label class="block text-[10px] tracking-[0.3em] uppercase text-primary-400 dark:text-primary-500 mb-2">
+      Telefon (valgfritt)
+    </label>
+    <input
+      type="tel"
+      x-model="phone"
+      class="w-full bg-transparent border-0 border-b border-primary-200 dark:border-primary-800 px-0 py-2 text-base text-primary-900 dark:text-primary-100 focus:border-primary-900 dark:focus:border-primary-100 focus:outline-none transition-colors duration-300"
+    />
+  </div>
+</div>
       <div class="grid gap-8 sm:grid-cols-2 mb-12">
         <div>
           <label class="block text-[10px] tracking-[0.3em] uppercase text-primary-400 dark:text-primary-500 mb-2">
@@ -107,50 +131,6 @@ const experiencesJson = JSON.stringify(experiences);
           Send forespurnad
         </button>
       </div>
-
     </div>
-
   </div>
 </section>
-
-<script>
-  // @ts-nocheck
-  document.addEventListener('alpine:init', () => {
-    Alpine.data('experienceBuilder', () => ({
-      experiences: [],
-      selected: '',
-      people: 2,
-      date: '',
-      init(data) {
-        this.experiences = data;
-        this.selected = data.length ? data[0].id : '';
-      },
-      get current() {
-        if (!this.experiences.length) return null;
-        return this.experiences.find(e => e.id === this.selected) || null;
-      },
-      get summary() {
-        const current = this.current;
-        if (!current) return 'Vel ei oppleving...';
-
-        const unit = this.people == 1 ? 'person' : 'personar';
-        return current.name + ' for ' + this.people + ' ' + unit;
-      },
-      sendRequest() {
-        const current = this.current;
-        if (!current) return;
-
-        const subject = encodeURIComponent('Forespurnad om besøk: ' + current.name);
-        const dateText = this.date || 'ikkje spesifisert';
-        const body = encodeURIComponent(
-          'Hei!\n\nJeg ønsker å booke følgande:\n\nOppleving: ' + current.name +
-          '\nVarigheit: ' + current.duration +
-          '\nAntal personar: ' + this.people +
-          '\nØnska dato: ' + dateText +
-          '\n\nVennleg helsing,'
-        );
-        window.location.href = 'mailto:fuglesteinfruktgard@gmail.com?subject=' + subject + '&body=' + body;
-      }
-    }));
-  });
-</script>
