@@ -26,23 +26,22 @@ const { title, description, imageAlt } = Astro.props;
         </div>
       </div>
 
-      <div class="relative w-full h-[600px] md:h-[750px] rounded-3xl overflow-hidden shadow-2xl">
-        <picture>
-          <source
-            media="(max-width: 767px)"
-            srcset="/assets/main_movil.png"
-          />
-          <img
-            src="/assets/drone_4k.jpg"
-            alt={imageAlt}
-            loading="eager"
-            decoding="async"
-            class="w-full h-full object-cover scale-[1.01]"
-          />
-        </picture>
+<div class="relative left-1/2 right-1/2 -mx-[50vw] w-screen md:left-auto md:right-auto md:mx-0 md:w-full h-[600px] md:h-[750px] rounded-none md:rounded-3xl overflow-hidden shadow-2xl">
+  <source
+    media="(max-width: 767px)"
+    srcset="/assets/drone.webp"
+  />
+  <img
+    src="/assets/drone.webp"
+    alt={imageAlt}
+    loading="eager"
+    decoding="async"
+    class="w-full h-full object-cover scale-[1.01]"
+  />
+</picture>
 
-        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-      </div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+</div>
 
     </div>
   </div>

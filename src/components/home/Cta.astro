@@ -3,9 +3,10 @@ interface Props {
   title: string;
   description: string;
   buttonText: string;
+  href: string;
 }
 
-const { title, description, buttonText } = Astro.props;
+const { title, description, buttonText, href } = Astro.props;
 ---
 
 <section class="py-16 reveal sm:py-20 bg-neutral-50/50 dark:bg-neutral-950/20">
@@ -41,7 +42,7 @@ const { title, description, buttonText } = Astro.props;
           {description}
         </p>
         <div class="pt-2">
-          <a href="/contact" style="background-color: #ffffff !important; color: #0a0a0a !important;" class="inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold shadow-sm transition-all duration-300 hover:bg-amber-400 hover:shadow-md active:scale-95">
+          <a href={href} style="background-color: #ffffff !important; color: #0a0a0a !important;" class="inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold shadow-sm transition-all duration-300 hover:bg-amber-400 hover:shadow-md active:scale-95">
             {buttonText}
           </a>
         </div>
