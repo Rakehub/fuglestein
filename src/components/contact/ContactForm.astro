@@ -6,9 +6,9 @@ interface Props {
 const { title } = Astro.props;
 ---
 
-<section class="bg-primary-50 text-primary-900 dark:bg-primary-950 dark:text-primary-100 transition-colors duration-300 py-16">
+<section class="bg-primary-50 text-primary-900 dark:bg-primary-950 dark:text-primary-100 transition-colors duration-300 pt-16 pb-4">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
-    <div class="flex flex-col items-center gap-6 mb-16">
+    <div class="flex flex-col items-center gap-6 mb-4">
       <h2 class="text-4xl sm:text-5xl font-light tracking-tight text-primary-950 dark:text-white" style="font-family: 'Cormorant Garamond', Georgia, serif;">
         {title}
       </h2>
@@ -30,22 +30,22 @@ const { title } = Astro.props;
         touchStartX: 0,
         touchEndX: 0,
         images: [
-          '/assets/carusell/img1.jpg',
-          '/assets/carusell/img2.jpg',
-          '/assets/carusell/img3.jpg',
-          '/assets/carusell/img4.jpg',
-          '/assets/carusell/img5.jpg',
-          '/assets/carusell/img6.jpg',
-          '/assets/carusell/img7.jpg',
-          '/assets/carusell/img8.jpg',
-          '/assets/carusell/img9.jpg',
-          '/assets/carusell/img10.jpg',
-          '/assets/carusell/img11.jpg',
-          '/assets/carusell/img12.jpg',
-          '/assets/carusell/img13.jpg',
-          '/assets/carusell/img14.jpg',
-          '/assets/carusell/img15.jpg',
-          '/assets/carusell/img16.jpg'
+          '/assets/carusell/img1.webp',
+          '/assets/carusell/img2.webp',
+          '/assets/carusell/img3.webp',
+          '/assets/carusell/img4.webp',
+          '/assets/carusell/img5.webp',
+          '/assets/carusell/img6.webp',
+          '/assets/carusell/img7.webp',
+          '/assets/carusell/img8.webp',
+          '/assets/carusell/img9.webp',
+          '/assets/carusell/img10.webp',
+          '/assets/carusell/img11.webp',
+          '/assets/carusell/img12.webp',
+          '/assets/carusell/img13.webp',
+          '/assets/carusell/img14.webp',
+          '/assets/carusell/img15.webp',
+          '/assets/carusell/img16.webp'
         ],
         get maxSlide() {
           return this.images.length - 1;
@@ -82,7 +82,7 @@ const { title } = Astro.props;
           clearInterval(this.autoplayInterval);
         },
         updatePerPage() {
-          this.perPage = window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+          this.perPage = window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 4;
           this.activeSlide = Math.min(this.activeSlide, this.maxSlide);
         },
         handleTouchStart(e) {
@@ -253,7 +253,7 @@ const { title } = Astro.props;
   </div>
 </section>
 
-<div class="w-full h-[350px] sm:h-[450px] relative overflow-hidden">
+<div class="w-full h-[350px] sm:h-[450px] relative overflow-hidden mt-6 sm:mt-8">
   <iframe
     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2035.4441415308465!2d6.110757477514185!3d59.32553841132386!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x463bdd37ac0087a1%3A0x3464aa7d4ecfd250!2sFuglestein%20Fruktgard!5e0!3m2!1sno!2sno!4v1781467686651!5m2!1sno!2sno"
     class="w-full h-full border-0 opacity-80 grayscale"
