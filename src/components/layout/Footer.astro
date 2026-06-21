@@ -2,8 +2,6 @@
 const pathname = Astro.url.pathname;
 const lang = pathname.startsWith('/en') ? 'en' : 'no';
 
-// Definimos una interfaz o estructura base para que TypeScript esté feliz
-// Aseguramos que 'isExternal' siempre exista en todos los objetos
 const bottomLinks = [
   {
     header: lang === 'en' ? 'Follow us' : 'Følg oss',
@@ -43,7 +41,6 @@ const bottomLinks = [
   <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
     <div class="flex flex-col justify-between gap-12 sm:gap-16 lg:flex-row">
       
-      <!-- Info empresa -->
       <div class="flex max-w-sm flex-col items-start gap-6">
         <div class="flex flex-col gap-1 text-base text-primary-950/70 dark:text-primary-200/70">
           <p class="font-medium text-primary-950 dark:text-white text-lg" style="font-family: 'Cormorant Garamond', serif;">Fuglestein Fruktgard</p>
@@ -54,7 +51,6 @@ const bottomLinks = [
         <p class="text-primary-950/70 dark:text-primary-200/70 text-sm">© 2026 Fuglestein. {lang === 'en' ? 'All rights reserved.' : 'Med enerett.'}</p>
       </div>
 
-      <!-- Links Footer -->
       <div class="grid max-w-xl flex-1 grid-cols-1 gap-8 sm:grid-cols-3">
         {bottomLinks.map((group) => (
           <div class="flex flex-col gap-4">
