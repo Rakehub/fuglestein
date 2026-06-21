@@ -6,46 +6,46 @@ import ExpVideo from '../components/exp/ExpVideo.astro';
 import Layout from '../layouts/Layout.astro';
 
 const experiences = [
-  { id: 'sider', name: 'Sidersmaking', description: 'Smak gjennom utvalet vårt med ei kort historie om garden.', duration: 'ca. 1 time' },
-  { id: 'omvising', name: 'Omvising i eplehagen', description: 'Gå gjennom rekkene av frukttre med oss som guide.', duration: 'ca. 1,5 time' },
-  { id: 'kombinert', name: 'Kombinert oppleving', description: 'Omvising og sidersmaking samla i ein avslappa formiddag eller ettermiddag.', duration: 'ca. 2,5 time' },
+  { id: 'sider', name: 'Sidersmaking', description: 'Smak deg gjennom utvalget vårt med en kort historie om gården.', duration: 'ca. 1 time' },
+  { id: 'omvising', name: 'Omvisning i eplehagen', description: 'Gå gjennom rekkene av frukttrær med oss som guide.', duration: 'ca. 1,5 timer' },
+  { id: 'kombinert', name: 'Kombinert oppleving', description: 'Omvisning og smaking av sider samlet i en avslappet formiddag eller ettermiddag.', duration: 'ca. 2,5 timer' },
 ];
 
 const faqData = [
-  { id: 'faq-1', title: 'Må eg bestille omvising på førehand?', answer: 'Ja, me set pris på at de melder frå på førehand.' },
-  { id: 'faq-2', title: 'Kan ein betale med Vipps?', answer: 'Ja, me tek imot betaling via Vipps.' },
-  { id: 'faq-3', title: 'Er gardsutsalet ope kvar dag?', answer: 'Ja, gardsutsalet vårt er ope 24/7.' },
-  { id: 'faq-4', title: 'Tek de imot store grupper?', answer: 'Me tek gjerne imot grupper, ta kontakt for opplegg.' },
-  { id: 'faq-5', title: 'Kor kan eg parkere?', answer: 'Me har eigne parkeringsplassar rett ved gardsutsalet.' },
-  { id: 'faq-6', title: 'Kva slags fottøy bør eg ha på meg?', answer: 'Me tilrår gode sko som toler litt utebruk.' }
+  { id: 'faq-1', title: 'Må jeg bestille omvisning på forhånd?', answer: 'Ja, vi setter pris på at dere gir beskjed på forhånd.' },
+  { id: 'faq-2', title: 'Kan man betale med Vipps?', answer: 'Ja, vi tar imot betaling via Vipps.' },
+  { id: 'faq-3', title: 'Er gårdsutsalget åpent hver dag?', answer: 'Ja, gårdsutsalget vårt er åpent 24/7.' },
+  { id: 'faq-4', title: 'Tar dere imot store grupper?', answer: 'Vi tar gjerne imot grupper, ta kontakt for opplegg.' },
+  { id: 'faq-5', title: 'Hvor kan jeg parkere?', answer: 'Vi har egne parkeringsplasser rett ved gårdsutsalget.' },
+  { id: 'faq-6', title: 'Hva slags fottøy bør jeg ha på meg?', answer: 'Vi anbefaler gode sko som tåler litt utebruk.' }
 ];
 ---
 
 
 <Layout
-  description="Opplev vår frukthage og bli med på smaking."
+  description="Opplev frukthagen vår og bli med på smaking."
   title="Fuglestein Fruktgard"
 >
   <Heading 
     title="Opplev Fuglestein" 
-    subtitle="Omvising i frukthagen og smaking av gardsprodukta våre."
+    subtitle="Omvisning i frukthagen og smaking av gårdsproduktene våre."
   />
 
   <ExpVideo 
     videoSrc="/assets/visit.webm"
-    description="Me tek gjerne imot grupper for ei lærerik reise i frukthagen vår. Ta kontakt for å avtale tidspunkt."
+    description="Vi tar gjerne imot grupper for en lærerik reise i frukthagen vår. Ta kontakt for å avtale tidspunkt."
   />
   
   <ExpForm 
   title="Planlegg besøket ditt"
-  subtitle="Vel di oppleving, og send oss ein forespurnad. Vil du heller sjå kva me lagar?"
-  linkText="Oppdag våre produkt"
-  labelStep="01 · Vel oppleving"
-  labelName="Namn *"
+  subtitle="Velg din opplevelse, og send oss en forespørsel. Vil du heller se hva vi lager?"
+  linkText="Oppdag våre produkter"
+  labelStep="01 · Velg opplevelse"
+  labelName="Navn *"
   labelPhone="Telefon (valgfritt)"
-  labelPeople="Antal personar"
-  labelDate="Ønska tidspunkt"
-  buttonText="Send forespurnad"
+  labelPeople="Antall personer"
+  labelDate="Ønsket tidspunkt"
+  buttonText="Send forespørsel"
   experiences={experiences} 
 />
   
