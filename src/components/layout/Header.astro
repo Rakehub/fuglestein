@@ -87,11 +87,10 @@ const links = lang === 'en' ? linksEn : linksNo;
   </div>
 
   <!-- Mobile Menu -->
-  <div x-show="open" x-collapse class="lg:hidden bg-primary-50 dark:bg-primary-950 px-6 pb-8 flex flex-col gap-6">
+  <div x-show="open" x-collapse class="lg:hidden bg-primary-50 dark:bg-primary-950 px-6 pb-8 flex flex-col items-end gap-6">
     {links.map((link) => (
       <a href={link.href} class="text-2xl font-light text-primary-900 dark:text-primary-100 hover:opacity-50 transition-opacity">
         {link.name}
       </a>
     ))}
-  </div>
 </header>
