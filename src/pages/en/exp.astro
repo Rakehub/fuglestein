@@ -1,8 +1,8 @@
 ---
-import Cta from '../../components/exp/Cta.astro';
-import Faq from '../../components/exp/Faq.astro';
+import ExpAsks from '../../components/exp/ExpAsks.astro';
+import ExpForm from '../../components/exp/ExpForm.astro';
 import Heading from '../../components/exp/Heading.astro';
-import PricingTable from '../../components/exp/PricingTable.astro';
+import ExpVideo from '../../components/exp/ExpVideo.astro';
 import Layout from '../../layouts/Layout.astro';
 
 const experiences = [
@@ -30,12 +30,12 @@ const faqData = [
     subtitle="Guided tours in the orchard and tastings of our farm products."
   />
 
-  <PricingTable 
+  <ExpVideo 
     videoSrc="/assets/visit.webm"
     description="We are happy to welcome groups for an educational journey through our orchard. Contact us to schedule a visit."
   />
    
-<Faq 
+<ExpForm 
   title="Plan your visit"
   subtitle="Choose your experience and send us a request. Would you rather see what we make?"
   linkText="Discover our products"
@@ -48,5 +48,5 @@ const faqData = [
   experiences={experiences} 
 />
   
-  <Cta title="Frequently Asked Questions" questions={faqData}/>
+  <ExpAsks title="Frequently Asked Questions" questions={faqData}/>
 </Layout>
