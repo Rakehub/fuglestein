@@ -8,48 +8,19 @@ const { videoSrc, description } = Astro.props;
 ---
 
 <section class="relative w-full overflow-hidden">
-<div x-data="{ playing: false }" class="relative w-full h-[60vh] sm:h-screen lg:h-[700px] lg:max-w-7xl lg:mx-auto lg:my-10 lg:rounded-3xl lg:shadow-2xl overflow-hidden">
-
-  <!-- Vídeo: no se descarga nada hasta que playing = true -->
-  <video
-    x-show="playing"
-    x-ref="video"
-    muted
-    loop
-    playsinline
-    preload="none"
-    poster="/assets/vid.jpg"
-    class="absolute inset-0 w-full h-full object-cover object-center"
-  >
-    <source src={videoSrc} type="video/mp4" />
-  </video>
-
-  <!-- Imagen de portada, visible hasta que se le da play -->
-  <img
-    x-show="!playing"
-    src="/assets/vid.jpg"
-    alt=""
-    class="absolute inset-0 w-full h-full object-cover object-center"
-  />
-
-  <!-- Botón de play -->
-  <button
-    x-show="!playing"
-    @click="playing = true; $nextTick(() => $refs.video.play())"
-    class="absolute inset-0 z-10 flex items-center justify-center group"
-    aria-label="Play video"
-  >
-    <span class="h-16 w-16 rounded-full bg-white/80 group-hover:bg-white transition-colors duration-300 flex items-center justify-center shadow-lg">
-      <svg class="h-6 w-6 text-primary-900 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M8 5v14l11-7z" />
-      </svg>
-    </span>
-  </button>
-
-  <!-- Degradado original -->
-  <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none"></div>
-
-</div>
+  <div class="relative w-full h-[60vh] sm:h-screen lg:h-[750px] lg:max-w-7xl lg:mx-auto lg:my-10 lg:rounded-3xl lg:shadow-2xl overflow-hidden">
+    <video 
+      autoplay 
+      muted 
+      loop 
+      playsinline 
+      poster="/images/vid.jpg"
+      class="absolute inset-0 w-full h-full object-cover object-center" 
+    >
+      <source src={videoSrc} type="video/mp4" />
+    </video>
+    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+  </div>
 
   <p class="text-center text-primary-900/60 dark:text-primary-200/60 font-light tracking-wide text-xl sm:text-2xl mt-12 max-w-2xl mx-auto italic leading-relaxed" style="font-family: 'Cormorant Garamond', Georgia, serif;">
     {description}
