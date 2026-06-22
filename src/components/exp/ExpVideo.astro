@@ -19,7 +19,7 @@ const { videoSrc, description } = Astro.props;
     >
       <source src={videoSrc} type="video/mp4" />
     </video>
-    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none"></div>
   </div>
 
   <p class="text-center text-primary-900/60 dark:text-primary-200/60 font-light tracking-wide text-xl sm:text-2xl mt-12 max-w-2xl mx-auto italic leading-relaxed" style="font-family: 'Cormorant Garamond', Georgia, serif;">
