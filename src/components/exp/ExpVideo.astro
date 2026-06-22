@@ -10,15 +10,15 @@ const { videoSrc, description } = Astro.props;
 <section class="relative w-full overflow-hidden">
   <div class="relative w-full h-[60vh] sm:h-screen lg:h-[750px] lg:max-w-7xl lg:mx-auto lg:my-10 lg:rounded-3xl lg:shadow-2xl overflow-hidden">
     <video 
-      autoplay 
-      muted 
-      loop 
-      playsinline 
-      poster="/images/vid.jpg"
-      class="absolute inset-0 w-full h-full object-cover object-center" 
-    >
-      <source src={videoSrc} type="video/mp4" />
-    </video>
+  id="myVideo"
+  muted
+  autoplay
+  playsinline
+  poster="/assets/vid.jpg"
+  class="absolute inset-0 w-full h-full object-cover object-center"
+>
+  <source src="/assets/visit.mp4" type="video/mp4" />
+</video>
 
 <script>
   // Forzar reproducción al cargar la página
