@@ -161,17 +161,23 @@ const { description, title } = Astro.props;
 /* =========================
    FORZAR AUTOPLAY EN VÍDEOS TRAS VIEW TRANSITIONS
 ========================== */
+  function initVideos() {
+    const videos = document.querySelectorAll('video');
+    videos.forEach(video => {
+      // Forzamos la carga de metadatos
+      video.load();
+      // Intentamos reproducir
+      video.play().catch(error => {
+        console.warn("Autoplay bloqueado por iOS, esperando interacción del usuario.");
+      });
+    });
+  }
 
-function playVideos() {
-  document.querySelectorAll('video[autoplay]').forEach((el) => {
-    const video = el as HTMLVideoElement;
-    video.load();
-    video.play().catch(() => {});
-  });
-}
-document.addEventListener('DOMContentLoaded', playVideos);
-document.addEventListener('astro:page-load', playVideos);
-document.addEventListener('astro:after-swap', playVideos);
+  // Se ejecuta al cargar la página normalmente
+  window.addEventListener('load', initVideos);
+
+  // Se ejecuta si Astro hace navegación interna (ViewTransitions)
+  document.addEventListener('astro:page-load', initVideos);
 
     </script>
   </body>
