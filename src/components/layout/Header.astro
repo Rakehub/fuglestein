@@ -7,7 +7,7 @@ const enHref = '/en' + (basePath === '/' ? '' : basePath);
 
 const linksNo = [
   { name: 'Heim', href: '/' },
-  { name: 'Om oss', href: '/about' },
+  { name: 'Om oss', href: '/about', 'reload': true },
   { name: 'Produkt', href: '/product' },
   { name: 'Opplevingar', href: '/exp' },
   { name: 'Kontakt', href: '/contact' },
@@ -15,7 +15,7 @@ const linksNo = [
 
 const linksEn = [
   { name: 'Home', href: '/en' },
-  { name: 'About us', href: '/en/about' },
+  { name: 'About us', href: '/en/about', 'reload': true },
   { name: 'Products', href: '/en/product' },
   { name: 'Experiences', href: '/en/exp' },
   { name: 'Contact', href: '/en/contact' },
