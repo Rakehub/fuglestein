@@ -172,6 +172,22 @@ const { description, title } = Astro.props;
 
   document.addEventListener('astro:page-load', initVideos);
 
+
+function intentarReproducir() {
+    const video = document.querySelector('#aboutVideo');
+    if (video) {
+      video.play().catch(error => {
+        console.log("iOS bloqueó el play automático, esperando interacción...");
+      });
+    }
+  }
+
+  // 1. Cuando la página carga por primera vez
+  document.addEventListener('astro:page-load', intentarReproducir);
+  
+  // 2. Si el usuario toca la pantalla, forzamos play (por si lo bloqueó iOS)
+  document.addEventListener('touchstart', intentarReproducir, { once: true });
+
     </script>
   </body>
 </html>

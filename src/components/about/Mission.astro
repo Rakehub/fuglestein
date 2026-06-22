@@ -72,19 +72,3 @@ const { famTitle, famDesc1, famDesc2, famImgAlt, histTitle, histDesc1, histDesc2
   </div>
 </section>
 
-<script>
-  function forcePlay() {
-    const video = document.getElementById('aboutVideo');
-    if (video) {
-      video.play().then(() => {
-        // Si arranca, eliminamos el listener para no gastar recursos
-        document.removeEventListener('touchstart', forcePlay);
-        window.removeEventListener('scroll', forcePlay);
-      }).catch(e => console.log("Aún bloqueado por Apple"));
-    }
-  }
-
-  // Escuchamos el primer toque o scroll del usuario
-  document.addEventListener('touchstart', forcePlay, { once: true });
-  window.addEventListener('scroll', forcePlay, { once: true });
-</script>
