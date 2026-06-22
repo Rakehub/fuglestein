@@ -1,14 +1,14 @@
 ---
 interface Product {
   name: string;
-  cat: string; // Esto lo usaremos para filtrar internamente
+  cat: string; 
   img: string;
 }
 
 interface Props {
   title: string;
   categories: { label: string; value: string }[];
-  categoryMap: Record<string, string>; // Mapa para traducir: { "Eplemost": "Apple Juice" }
+  categoryMap: Record<string, string>; 
   products: Product[];
 }
 

@@ -47,9 +47,6 @@ const { description, title } = Astro.props;
 
     <Footer />
 
-    <!-- =========================
-         ALPINE (ÚNICA INSTANCIA)
-    ========================== -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <script>
@@ -137,7 +134,7 @@ const { description, title } = Astro.props;
 
 
       /* =========================
-         SCROLL REVEAL (ROBUSTO)
+         SCROLL REVEAL
       ========================== */
 
       function reveal() {
@@ -159,24 +156,20 @@ const { description, title } = Astro.props;
       document.addEventListener('astro:after-swap', initReveal);
 
 /* =========================
-   FORZAR AUTOPLAY EN VÍDEOS TRAS VIEW TRANSITIONS
+   AUTOPLAY
 ========================== */
   function initVideos() {
     const videos = document.querySelectorAll('video');
     videos.forEach(video => {
-      // Forzamos la carga de metadatos
       video.load();
-      // Intentamos reproducir
       video.play().catch(error => {
         console.warn("Autoplay bloqueado por iOS, esperando interacción del usuario.");
       });
     });
   }
 
-  // Se ejecuta al cargar la página normalmente
   window.addEventListener('load', initVideos);
 
-  // Se ejecuta si Astro hace navegación interna (ViewTransitions)
   document.addEventListener('astro:page-load', initVideos);
 
     </script>
