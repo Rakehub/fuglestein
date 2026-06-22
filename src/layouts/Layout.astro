@@ -155,23 +155,6 @@ const { description, title } = Astro.props;
       document.addEventListener('astro:page-load', initReveal);
       document.addEventListener('astro:after-swap', initReveal);
 
-/* =========================
-   AUTOPLAY
-========================== */
-  function initVideos() {
-    const videos = document.querySelectorAll('video');
-    videos.forEach(video => {
-      video.load();
-      video.play().catch(error => {
-        console.warn("Autoplay bloqueado por iOS, esperando interacción del usuario.");
-      });
-    });
-  }
-
-  window.addEventListener('load', initVideos);
-
-  document.addEventListener('astro:page-load', initVideos);
-
     </script>
   </body>
 </html>
