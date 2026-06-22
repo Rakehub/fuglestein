@@ -157,6 +157,22 @@ const { description, title } = Astro.props;
       document.addEventListener('DOMContentLoaded', initReveal);
       document.addEventListener('astro:page-load', initReveal);
       document.addEventListener('astro:after-swap', initReveal);
+
+/* =========================
+   FORZAR AUTOPLAY EN VÍDEOS TRAS VIEW TRANSITIONS
+========================== */
+
+function playVideos() {
+  document.querySelectorAll('video[autoplay]').forEach((video) => {
+    video.play().catch(() => {
+      // Si falla (ej: usuario con ahorro de datos activado), no rompemos nada
+    });
+  });
+}
+document.addEventListener('DOMContentLoaded', playVideos);
+document.addEventListener('astro:page-load', playVideos);
+document.addEventListener('astro:after-swap', playVideos);
+
     </script>
   </body>
 </html>
