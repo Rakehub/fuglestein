@@ -19,6 +19,22 @@ const { videoSrc, description } = Astro.props;
     >
       <source src={videoSrc} type="video/mp4" />
     </video>
+
+<script>
+  // Forzar reproducción al cargar la página
+  const video = document.getElementById('myVideo');
+  const playVideo = () => {
+    video.play().catch(error => {
+      console.log("Autoplay bloqueado, el usuario necesita interactuar.");
+    });
+  };
+  
+  // Ejecutar cuando el navegador esté listo
+  window.addEventListener('load', playVideo);
+  // También ejecutar si el usuario toca cualquier parte de la pantalla
+  window.addEventListener('touchstart', playVideo, { once: true });
+</script>
+
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none"></div>
   </div>
 
